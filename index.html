@@ -2,124 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Ensures proper encoding for special characters -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Makes the app responsive on mobile devices -->
-  <title>Fibertime Report</title>
-  <!-- Page title shown in browser tab -->
+  <title>Fibertime Report - Login</title>
   <link rel="manifest" href="manifest.json">
-  <!-- Links to PWA manifest for installable app features -->
   <style>
-    /* General styling for the page */
     body {
-      font-family: Arial, sans-serif; /* Clean, readable font */
-      background-color: #f4f4f9; /* Light gray background */
-      margin: 0; /* Remove default margins */
-      padding: 20px; /* Space around content */
-      display: flex; /* Center content vertically and horizontally */
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh; /* Full viewport height */
+      min-height: 100vh;
+    }
+    div {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
     }
     h1 {
-      color: #333; /* Dark gray text */
-      text-align: center; /* Centered heading */
-      margin-bottom: 10px; /* Space below heading */
-    }
-    p {
-      color: #666; /* Medium gray text */
-      text-align: center; /* Centered paragraph */
-      margin-bottom: 20px; /* Space below paragraph */
-    }
-    form {
-      background-color: #fff; /* White background for form */
-      padding: 20px; /* Inner spacing */
-      border-radius: 8px; /* Rounded corners */
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-      width: 100%; /* Full width up to max */
-      max-width: 400px; /* Limit form width */
-    }
-    input[type="text"],
-    select,
-    input[type="file"] {
-      width: 100%; /* Full width of parent */
-      padding: 10px; /* Inner spacing */
-      margin: 10px 0; /* Vertical spacing between inputs */
-      border: 1px solid #ddd; /* Light gray border */
-      border-radius: 4px; /* Rounded corners */
-      box-sizing: border-box; /* Include padding in width */
-      font-size: 14px; /* Readable text size */
-    }
-    select {
-      appearance: none; /* Remove default dropdown arrow */
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"><path fill="gray" d="M0 0l5 5 5-5H0z"/></svg>') no-repeat right 10px center;
-      /* Custom dropdown arrow */
-      background-size: 10px; /* Arrow size */
+      color: #333;
+      margin-bottom: 20px;
     }
     button {
-      width: 100%; /* Full width */
-      padding: 12px; /* Larger padding for button */
-      background-color: #007bff; /* Blue background */
-      color: white; /* White text */
-      border: none; /* No border */
-      border-radius: 4px; /* Rounded corners */
-      font-size: 16px; /* Larger text */
-      cursor: pointer; /* Hand cursor on hover */
-      transition: background-color 0.3s; /* Smooth color change */
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
     button:hover {
-      background-color: #0056b3; /* Darker blue on hover */
-    }
-    input[type="file"] {
-      padding: 5px 0; /* Adjusted padding for file input */
-    }
-    ::placeholder {
-      color: #aaa; /* Light gray placeholder text */
-    }
-    @media (max-width: 500px) {
-      /* Responsive adjustments for small screens */
-      form {
-        padding: 15px; /* Smaller padding */
-      }
-      h1 {
-        font-size: 24px; /* Smaller heading */
-      }
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
   <div>
-    <!-- Wrapper div for centering content -->
-    <h1>Fibertime Progress Report</h1>
-    <!-- Main heading -->
-    <p>Daily Target: 10 installations</p>
-    <!-- Static target info -->
-    <form id="reportForm">
-      <!-- Form for submitting reports -->
-      <input type="text" id="ponNumber" placeholder="Pon Number" required>
-      <!-- Input for PON number -->
-      <input type="text" id="poleNumber" placeholder="Pole Number" required>
-      <!-- Input for pole number -->
-      <input type="text" id="houseAddress" placeholder="House Address" required>
-      <!-- Input for house address -->
-      <select id="installationStatus" required>
-        <!-- Dropdown for installation status -->
-        <option value="">Installation Status</option>
-        <option value="installed properly">Installed Properly</option>
-        <option value="installed but faulty/ Future Visit">Installed but Faulty/ Future Visit</option>
-        <option value="declined">Declined</option>
-      </select>
-      <input type="text" id="dropNumber" placeholder="Drop Number" required>
-      <!-- Input for drop number -->
-      <input type="file" id="pictures" accept="image/*" multiple max="5">
-      <!-- File input for up to 5 images -->
-      <button type="submit">Submit</button>
-      <!-- Submit button -->
-    </form>
+    <h1>Fibertime Report Login</h1>
+    <button id="googleSignIn">Sign In with Google</button>
   </div>
-  <script src="app.js"></script>
-  <!-- Links to app logic -->
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'924bcb828fa04578',t:'MTc0MjcxMDUzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-  <!-- Cloudflare script (unchanged from original) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: '847039866517-vcdic60bs314asr9f731iclaj3pbepsm.apps.googleusercontent.com',
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById('googleSignIn'),
+        { theme: 'outline', size: 'large' }
+      );
+    };
+
+    function handleCredentialResponse(response) {
+      const data = parseJwt(response.credential);
+      localStorage.setItem('loggedInTechnician', JSON.stringify({
+        name: data.name,
+        email: data.email,
+        token: response.credential
+      }));
+      window.location.href = 'report.html';
+    }
+
+    function parseJwt(token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    }
+  </script>
 </body>
 </html>

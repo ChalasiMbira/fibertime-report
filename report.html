@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fibertime Report</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    div {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #666;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      width: 100%;
+    }
+    input[type="text"],
+    select,
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    select {
+      appearance: none;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5" viewBox="0 0 10 5"><path fill="gray" d="M0 0l5 5 5-5H0z"/></svg>') no-repeat right 10px center;
+      background-size: 10px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    input[type="file"] {
+      padding: 5px 0;
+    }
+    ::placeholder {
+      color: #aaa;
+    }
+    #logout {
+      background-color: #dc3545;
+      margin-top: 10px;
+    }
+    #logout:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1 id="greeting">Hello</h1>
+    <p>Daily Target: 10 installations</p>
+    <form id="reportForm">
+      <input type="text" id="ponNumber" placeholder="Pon Number" required>
+      <input type="text" id="poleNumber" placeholder="Pole Number" required>
+      <input type="text" id="houseAddress" placeholder="House Address" required>
+      <select id="installationStatus" required>
+        <option value="">Installation Status</option>
+        <option value="installed properly">Installed Properly</option>
+        <option value="installed but faulty/ Future Visit">Installed but Faulty/ Future Visit</option>
+        <option value="declined">Declined</option>
+      </select>
+      <input type="text" id="dropNumber" placeholder="Drop Number" required>
+      <input type="text" id="groupName" placeholder="Group Name" required>
+      <input type="file" id="pictures" accept="image/*" multiple max="5" required>
+      <button type="submit">Submit</button>
+    </form>
+    <button id="logout">Logout</button>
+  </div>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init('xRd98v3fXwAyvanG6');
+    })();
+
+    const technician = JSON.parse(localStorage.getItem('loggedInTechnician'));
+    if (!technician || !technician.name) {
+      window.location.href = 'index.html';
+    } else {
+      document.getElementById('greeting').textContent = Hello, ;
+    }
+
+    document.getElementById('logout').addEventListener('click', () => {
+      localStorage.removeItem('loggedInTechnician');
+      window.location.href = 'index.html';
+    });
+
+    document.getElementById('reportForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const params = {
+        to_email: 'charlesmbira22@gmail.com',
+        technician_name: technician.name,
+        pon_number: document.getElementById('ponNumber').value,
+        pole_number: document.getElementById('poleNumber').value,
+        house_address: document.getElementById('houseAddress').value,
+        installation_status: document.getElementById('installationStatus').value,
+        drop_number: document.getElementById('dropNumber').value,
+        group_name: document.getElementById('groupName').value,
+        pictures: Array.from(document.getElementById('pictures').files).map(f => f.name).join(', ')
+      };
+
+      emailjs.send('service_6fgvtge', 'template_z50cr9w', params)
+        .then(() => {
+          alert(Report sent successfully! Great job, ! Your hard work is appreciated!);
+          document.getElementById('reportForm').reset();
+        }, (error) => {
+          alert('Error sending report: ' + error.text);
+        });
+    });
+  </script>
+</body>
+</html>
